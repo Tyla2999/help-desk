@@ -7,16 +7,25 @@
     <link rel="stylesheet" href="<?= e(asset_url('assets/css/style.css')) ?>">
 </head>
 <body>
-    <header class="topbar">
-        <div class="container">
-            <h1>IT Help Desk</h1>
-            <p>ระบบแจ้งซ่อมและประกาศข่าวสารภายในทีมไอที</p>
+    <header class="site-header">
+        <div class="container header-inner">
+            <div>
+                <p class="eyebrow">INTERNAL SERVICE PORTAL</p>
+                <h1>IT Help Desk</h1>
+                <p class="subtitle">ระบบแจ้งซ่อมและประกาศข่าวสารสำหรับการทำงานภายในองค์กร</p>
+            </div>
         </div>
     </header>
 
-    <main class="container">
+    <main class="container page-content">
         <?= $content ?>
     </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <small>IT Help Desk • Standardized Internal Workflow</small>
+        </div>
+    </footer>
 
     <script src="<?= e(asset_url('assets/js/app.js')) ?>"></script>
 </body>

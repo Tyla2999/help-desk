@@ -3,21 +3,25 @@
 /** @var array<int, array<string, mixed>> $tickets */
 ?>
 
-<section class="banner">
-    <div>
-        <h2>ศูนย์รับแจ้งปัญหาไอที</h2>
-        <p>แจ้งซ่อมได้รวดเร็ว ติดตามงานง่าย และประกาศสำคัญเห็นชัดในหน้าเดียว</p>
+<section class="hero">
+    <div class="hero-content">
+        <p class="hero-label">SERVICE DESK</p>
+        <h2>ศูนย์แจ้งซ่อมและประกาศงานไอที</h2>
+        <p>จัดการคำขอซ่อม แจ้งข่าวสารสำคัญ และติดตามงานล่าสุดได้จากหน้าเดียวในรูปแบบมาตรฐานองค์กร</p>
     </div>
-    <img src="<?= e(asset_url('assets/images/banner-it.svg')) ?>" alt="IT Support Banner">
+    <img src="<?= e(asset_url('assets/images/banner-it.svg')) ?>" alt="IT Support Banner" class="hero-image">
 </section>
 
 <?php if (!empty($success)): ?>
     <div class="alert"><?= e($success) ?></div>
 <?php endif; ?>
 
-<section class="grid two-columns">
-    <article class="card">
-        <h3>เพิ่มประกาศ</h3>
+<section class="panel-grid">
+    <article class="panel">
+        <div class="panel-head">
+            <h3>เพิ่มประกาศ</h3>
+            <p>บันทึกประกาศเพื่อสื่อสารกับผู้ใช้งานภายใน</p>
+        </div>
         <form method="post" action="<?= e(url('announcements')) ?>" class="stack">
             <label>หัวข้อประกาศ</label>
             <input type="text" name="title" placeholder="เช่น แจ้งปิดปรับปรุงระบบ" required>
@@ -32,8 +36,11 @@
         </form>
     </article>
 
-    <article class="card">
-        <h3>แจ้งซ่อมไอที</h3>
+    <article class="panel">
+        <div class="panel-head">
+            <h3>แจ้งซ่อมไอที</h3>
+            <p>ส่งปัญหาเพื่อให้ทีมไอทีรับเรื่องและดำเนินการ</p>
+        </div>
         <form method="post" action="<?= e(url('tickets')) ?>" class="stack">
             <label>ชื่อผู้แจ้ง</label>
             <input type="text" name="name" placeholder="ชื่อ-สกุล" required>
@@ -57,40 +64,53 @@
     </article>
 </section>
 
-<section class="grid two-columns">
-    <article class="card">
-        <h3>รายการประกาศล่าสุด</h3>
+<section class="panel-grid">
+    <article class="panel">
+        <div class="panel-head">
+            <h3>ประกาศล่าสุด</h3>
+            <p>ข่าวสารและการแจ้งเตือนจากทีมไอที</p>
+        </div>
         <?php if (empty($announcements)): ?>
             <p class="muted">ยังไม่มีประกาศ</p>
         <?php else: ?>
             <div class="list">
                 <?php foreach ($announcements as $announcement): ?>
-                    <div class="list-item">
-                        <h4><?= e($announcement['title'] ?? '-') ?></h4>
-                        <p><?= nl2br(e($announcement['detail'] ?? '-')) ?></p>
+                    <article class="list-item">
+                        <div class="item-head">
+                            <h4><?= e($announcement['title'] ?? '-') ?></h4>
+                            <small><?= e($announcement['created_at'] ?? '-') ?></small>
+                        </div>
+                        <p class="item-body"><?= nl2br(e($announcement['detail'] ?? '-')) ?></p>
                         <?php if (!empty($announcement['image_url'])): ?>
                             <img src="<?= e($announcement['image_url']) ?>" alt="announcement image" class="thumb">
                         <?php endif; ?>
-                        <small><?= e($announcement['created_at'] ?? '-') ?></small>
-                    </div>
+                    </article>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
     </article>
 
-    <article class="card">
-        <h3>งานแจ้งซ่อมล่าสุด</h3>
+    <article class="panel">
+        <div class="panel-head">
+            <h3>รายการแจ้งซ่อมล่าสุด</h3>
+            <p>คำขอซ่อมที่ถูกส่งเข้าระบบล่าสุด</p>
+        </div>
         <?php if (empty($tickets)): ?>
             <p class="muted">ยังไม่มีงานแจ้งซ่อม</p>
         <?php else: ?>
             <div class="list">
                 <?php foreach ($tickets as $ticket): ?>
-                    <div class="list-item">
-                        <h4><?= e($ticket['problem'] ?? '-') ?></h4>
-                        <p>ผู้แจ้ง: <?= e($ticket['name'] ?? '-') ?> | แผนก: <?= e($ticket['department'] ?? '-') ?></p>
-                        <p>ความเร่งด่วน: <strong><?= e($ticket['priority'] ?? '-') ?></strong> | สถานะ: <?= e($ticket['status'] ?? '-') ?></p>
-                        <small><?= e($ticket['created_at'] ?? '-') ?></small>
-                    </div>
+                    <article class="list-item">
+                        <div class="item-head">
+                            <h4><?= e($ticket['problem'] ?? '-') ?></h4>
+                            <small><?= e($ticket['created_at'] ?? '-') ?></small>
+                        </div>
+                        <p class="item-body">ผู้แจ้ง: <?= e($ticket['name'] ?? '-') ?> • แผนก: <?= e($ticket['department'] ?? '-') ?></p>
+                        <div class="meta-row">
+                            <span class="meta-pill">ความเร่งด่วน: <?= e($ticket['priority'] ?? '-') ?></span>
+                            <span class="meta-pill">สถานะ: <?= e($ticket['status'] ?? '-') ?></span>
+                        </div>
+                    </article>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
