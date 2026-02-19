@@ -30,13 +30,21 @@ function base_path(string $path = ''): string
     return $path ? $base . '/' . ltrim($path, '/') : $base;
 }
 
-function app_base_url(): string
+function request_base_path(): string
 {
-    if (defined('PUBLIC_PREFIX')) {
-        return rtrim((string) PUBLIC_PREFIX, '/');
+    $scriptName = str_replace('\\', '/', (string) ($_SERVER['SCRIPT_NAME'] ?? ''));
+    $dir = rtrim((string) dirname($scriptName), '/');
+
+    if ($dir === '.' || $dir === '/') {
+        return '';
     }
 
-    return '';
+    return $dir;
+}
+
+function app_base_url(): string
+{
+    return request_base_path();
 }
 
 function url(string $path = ''): string
@@ -49,6 +57,24 @@ function url(string $path = ''): string
     }
 
     return ($base === '' ? '' : $base) . '/' . $normalizedPath;
+}
+
+function asset_url(string $path = ''): string
+{
+    $base = app_base_url();
+    $prefix = '';
+
+    if (defined('PUBLIC_PREFIX')) {
+        $prefix = rtrim((string) PUBLIC_PREFIX, '/');
+    }
+
+    $assetPath = ltrim($path, '/');
+
+    if ($assetPath === '') {
+        return ($base === '' ? '' : $base) . $prefix . '/';
+    }
+
+    return ($base === '' ? '' : $base) . $prefix . '/' . $assetPath;
 }
 
 function view(string $view, array $data = []): void
@@ -64,7 +90,8 @@ function view(string $view, array $data = []): void
 
 function redirect(string $path): void
 {
-    header('Location: ' . $path);
+    $target = preg_match('#^https?://#', $path) ? $path : url($path);
+    header('Location: ' . $target);
     exit;
 }
 

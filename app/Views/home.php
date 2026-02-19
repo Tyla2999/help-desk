@@ -8,7 +8,7 @@
         <h2>ศูนย์รับแจ้งปัญหาไอที</h2>
         <p>แจ้งซ่อมได้รวดเร็ว ติดตามงานง่าย และประกาศสำคัญเห็นชัดในหน้าเดียว</p>
     </div>
-    <img src="<?= e(url('assets/images/banner-it.svg')) ?>" alt="IT Support Banner">
+    <img src="<?= e(asset_url('assets/images/banner-it.svg')) ?>" alt="IT Support Banner">
 </section>
 
 <?php if (!empty($success)): ?>

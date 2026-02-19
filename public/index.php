@@ -8,12 +8,12 @@ $routes = require base_path('routes/web.php');
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $uri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
 
-if (defined('PUBLIC_PREFIX')) {
-    $prefix = rtrim((string) PUBLIC_PREFIX, '/');
-    if ($prefix !== '' && str_starts_with($uri, $prefix)) {
-        $uri = substr($uri, strlen($prefix)) ?: '/';
-    }
+$requestBase = request_base_path();
+if ($requestBase !== '' && str_starts_with($uri, $requestBase)) {
+    $uri = substr($uri, strlen($requestBase)) ?: '/';
 }
+
+$uri = '/' . ltrim($uri, '/');
 
 $routeKey = $method . ' ' . $uri;
 
