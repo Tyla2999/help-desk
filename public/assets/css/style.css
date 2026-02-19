@@ -108,11 +108,19 @@ body {
     margin-bottom: 16px;
 }
 
+.single-column {
+    grid-template-columns: 1fr;
+}
+
 .panel {
     background: #ffffff;
     border: 1px solid #dbe2ea;
     border-radius: 12px;
     padding: 18px;
+}
+
+.action-panel {
+    align-self: start;
 }
 
 .panel-head {
@@ -175,6 +183,37 @@ button {
 
 button {
     margin-top: 4px;
+}
+
+.request-box {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 10px;
+}
+
+.request-trigger {
+    list-style: none;
+    background: #1d4ed8;
+    color: #ffffff;
+    border: 1px solid #1d4ed8;
+    border-radius: 8px;
+    padding: 11px 12px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.request-trigger::-webkit-details-marker {
+    display: none;
+}
+
+.request-box[open] .request-trigger {
+    background: #0f3eb4;
+    border-color: #0f3eb4;
+}
+
+.request-form {
+    margin-top: 12px;
 }
 
 .list {
