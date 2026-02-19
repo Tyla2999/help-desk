@@ -8,7 +8,7 @@
         <h2>ศูนย์รับแจ้งปัญหาไอที</h2>
         <p>แจ้งซ่อมได้รวดเร็ว ติดตามงานง่าย และประกาศสำคัญเห็นชัดในหน้าเดียว</p>
     </div>
-    <img src="/assets/images/banner-it.svg" alt="IT Support Banner">
+    <img src="<?= e(url('assets/images/banner-it.svg')) ?>" alt="IT Support Banner">
 </section>
 
 <?php if (!empty($success)): ?>
@@ -18,7 +18,7 @@
 <section class="grid two-columns">
     <article class="card">
         <h3>เพิ่มประกาศ</h3>
-        <form method="post" action="/announcements" class="stack">
+        <form method="post" action="<?= e(url('announcements')) ?>" class="stack">
             <label>หัวข้อประกาศ</label>
             <input type="text" name="title" placeholder="เช่น แจ้งปิดปรับปรุงระบบ" required>
 
@@ -34,7 +34,7 @@
 
     <article class="card">
         <h3>แจ้งซ่อมไอที</h3>
-        <form method="post" action="/tickets" class="stack">
+        <form method="post" action="<?= e(url('tickets')) ?>" class="stack">
             <label>ชื่อผู้แจ้ง</label>
             <input type="text" name="name" placeholder="ชื่อ-สกุล" required>
 

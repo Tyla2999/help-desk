@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= e($pageTitle ?? 'Help Desk') ?></title>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="<?= e(url('assets/css/style.css')) ?>">
 </head>
 <body>
     <header class="topbar">
@@ -18,6 +18,6 @@
         <?= $content ?>
     </main>
 
-    <script src="/assets/js/app.js"></script>
+    <script src="<?= e(url('assets/js/app.js')) ?>"></script>
 </body>
 </html>
