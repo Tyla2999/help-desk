@@ -42,6 +42,12 @@ help-desk/
 mysql -u root -p < database/schema.sql
 ```
 
+หากอัปเดตจากเวอร์ชันเดิม ให้รัน migration เพิ่มฟีเจอร์การมีส่วนร่วมของพนักงาน:
+
+```bash
+mysql -u root -p < database/migrations/20260220_add_employee_ideas.sql
+```
+
 2. หากต้องการเปลี่ยนค่าฐานข้อมูล ให้ตั้งค่า Environment Variables ต่อไปนี้:
 
 - `DB_HOST`

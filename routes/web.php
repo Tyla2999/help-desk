@@ -19,6 +19,8 @@ return [
     'GET /supervisor/dashboard' => [DashboardController::class, 'supervisor'],
     'GET /user/dashboard' => [DashboardController::class, 'user'],
     'GET /staff/dashboard' => [DashboardController::class, 'staff'],
+    'POST /user/ideas' => [DashboardController::class, 'submitIdea'],
+    'POST /user/ideas/vote' => [DashboardController::class, 'voteIdea'],
     'GET /admin/users' => [AdminController::class, 'users'],
     'POST /admin/users/approve' => [AdminController::class, 'approveUser'],
     'POST /admin/users/reject' => [AdminController::class, 'rejectUser'],
