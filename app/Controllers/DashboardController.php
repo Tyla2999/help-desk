@@ -18,20 +18,40 @@ class DashboardController
         $role = (string) ($user['role'] ?? 'staff');
 
         if ($role === 'admin') {
-            redirect('/admin/users');
+            redirect('/admin/dashboard');
         }
 
         if ($role === 'supervisor') {
-            view('dashboards/supervisor', [
-                'pageTitle' => 'แดชบอร์ดหัวหน้างาน',
-                'currentUser' => $user,
-            ]);
-            return;
+            redirect('/supervisor/dashboard');
         }
 
-        view('dashboards/staff', [
+        redirect('/staff/dashboard');
+    }
+
+    public function admin(): void
+    {
+        require_role('admin');
+
+        redirect('/admin/users');
+    }
+
+    public function supervisor(): void
+    {
+        require_role('supervisor');
+
+        view('roles/supervisor/dashboard', [
+            'pageTitle' => 'แดชบอร์ดหัวหน้างาน',
+            'currentUser' => current_user(),
+        ]);
+    }
+
+    public function staff(): void
+    {
+        require_role('staff');
+
+        view('roles/staff/dashboard', [
             'pageTitle' => 'แดชบอร์ดพนักงาน',
-            'currentUser' => $user,
+            'currentUser' => current_user(),
         ]);
     }
 }

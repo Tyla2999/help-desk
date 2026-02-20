@@ -95,6 +95,7 @@ $isAdmin = $isLoggedIn && ((string) ($currentUser['role'] ?? '') === 'admin');
                 <button type="button" class="btn-hero-primary" data-open-report>แจ้งซ่อมออนไลน์</button>
             <?php else: ?>
                 <a href="<?= e(url('login')) ?>" class="btn-hero-primary">เข้าสู่ระบบเพื่อแจ้งซ่อม</a>
+                <a href="<?= e(url('register')) ?>" class="btn-hero-secondary">สมัครสมาชิก</a>
             <?php endif; ?>
             <a href="#service-status" class="btn-hero-secondary">ตรวจสอบสถานะ</a>
         </div>

@@ -26,7 +26,7 @@ class AdminController
     {
         require_role('admin');
 
-        view('admin/users', [
+        view('roles/admin/users', [
             'pageTitle' => 'จัดการผู้ใช้งาน',
             'pendingUsers' => $this->userModel->pendingUsers(),
             'success' => Flash::get('success'),
@@ -82,7 +82,7 @@ class AdminController
         $keys = ['hero_title', 'hero_subtitle', 'contact_phone', 'contact_email'];
         $values = $this->siteContentModel->getMany($keys);
 
-        view('admin/content', [
+        view('roles/admin/content', [
             'pageTitle' => 'จัดการเนื้อหาเว็บไซต์',
             'values' => $values,
             'announcements' => $this->announcementModel->all(),
