@@ -8,7 +8,7 @@ return [
     'timezone' => 'Asia/Bangkok',
     'database' => [
         'driver' => getenv('DB_DRIVER') ?: 'mysql',
-        'host' => getenv('DB_HOST') ?: '127.0.0.1',
+        'host' => getenv('DB_HOST') ?: 'localhost:3306',
         'port' => getenv('DB_PORT') ?: '3306',
         'name' => getenv('DB_NAME') ?: 'help_desk',
         'username' => getenv('DB_USER') ?: 'root',
