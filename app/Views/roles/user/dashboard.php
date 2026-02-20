@@ -1,8 +1,8 @@
 <main class="dashboard-shell">
     <aside class="dashboard-sidebar">
-        <div class="sidebar-brand">SUPERVISOR</div>
+        <div class="sidebar-brand">USER</div>
         <nav class="sidebar-menu">
-            <a href="<?= e(url('supervisor/dashboard')) ?>" class="active">แดชบอร์ดหัวหน้างาน</a>
+            <a href="<?= e(url('user/dashboard')) ?>" class="active">แดชบอร์ดพนักงาน</a>
             <a href="<?= e(url('/')) ?>">หน้าเว็บหลัก</a>
         </nav>
         <form method="post" action="<?= e(url('logout')) ?>" class="sidebar-logout">
@@ -13,14 +13,14 @@
 
     <section class="dashboard-content">
         <div class="dashboard-header">
-            <h1>แดชบอร์ดหัวหน้างาน</h1>
+            <h1>แดชบอร์ดพนักงาน</h1>
             <p>ยินดีต้อนรับ <?= e((string) ($currentUser['full_name'] ?? '')) ?></p>
         </div>
 
         <section class="card">
-            <div class="card-header">สิทธิ์ของหัวหน้างาน</div>
+            <div class="card-header">สิทธิ์ของพนักงาน</div>
             <div class="card-body">
-                <p>คุณสามารถเข้าสู่ระบบและใช้งานฟอร์มแจ้งซ่อมได้ตามสิทธิ์ที่ระบบกำหนด</p>
+                <p>คุณสามารถเข้าสู่ระบบและส่งคำขอแจ้งซ่อมผ่านหน้าเว็บหลักได้</p>
             </div>
         </section>
     </section>

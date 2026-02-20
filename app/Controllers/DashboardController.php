@@ -25,7 +25,7 @@ class DashboardController
             redirect('/supervisor/dashboard');
         }
 
-        redirect('/staff/dashboard');
+        redirect('/user/dashboard');
     }
 
     public function admin(): void
@@ -49,7 +49,14 @@ class DashboardController
     {
         require_role('staff');
 
-        view('roles/staff/dashboard', [
+        redirect('/user/dashboard');
+    }
+
+    public function user(): void
+    {
+        require_role('staff');
+
+        view('roles/user/dashboard', [
             'pageTitle' => 'แดชบอร์ดพนักงาน',
             'currentUser' => current_user(),
         ]);

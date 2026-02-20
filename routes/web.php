@@ -17,6 +17,7 @@ return [
     'GET /dashboard' => [DashboardController::class, 'index'],
     'GET /admin/dashboard' => [DashboardController::class, 'admin'],
     'GET /supervisor/dashboard' => [DashboardController::class, 'supervisor'],
+    'GET /user/dashboard' => [DashboardController::class, 'user'],
     'GET /staff/dashboard' => [DashboardController::class, 'staff'],
     'GET /admin/users' => [AdminController::class, 'users'],
     'POST /admin/users/approve' => [AdminController::class, 'approveUser'],
