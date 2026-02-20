@@ -14,6 +14,7 @@
 
     <section class="dashboard-content">
         <div class="dashboard-header">
+            <div class="sub">ADMINISTRATOR PANEL</div>
             <h1>แดชบอร์ดแอดมิน</h1>
             <p>ยินดีต้อนรับ <?= e((string) ($currentUser['full_name'] ?? '')) ?></p>
         </div>

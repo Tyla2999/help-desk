@@ -14,6 +14,7 @@
 
     <section class="dashboard-content">
         <div class="dashboard-header">
+            <div class="sub">WEBSITE CONTENT MANAGEMENT</div>
             <h1>จัดการเนื้อหาเว็บไซต์</h1>
             <p>แอดมินสามารถปรับข้อความและจัดการประกาศได้จากหน้านี้</p>
         </div>

@@ -13,6 +13,7 @@
 
     <section class="dashboard-content">
         <div class="dashboard-header">
+            <div class="sub">USER DASHBOARD</div>
             <h1>แดชบอร์ดพนักงาน</h1>
             <p>ยินดีต้อนรับ <?= e((string) ($currentUser['full_name'] ?? '')) ?></p>
         </div>
