@@ -93,6 +93,8 @@ header .container {
 
 nav { display: flex; align-items: center; gap: 4px; }
 
+.inline-form { display: inline-flex; margin: 0; }
+
 nav a {
     text-decoration: none;
     color: var(--gray-600);
@@ -112,6 +114,10 @@ nav a:hover, nav a.active { color: var(--red); background: rgba(217, 32, 32, 0.0
     font-weight: 600;
     border: none;
     cursor: pointer;
+}
+
+.btn-report.secondary {
+    background: var(--gray-700);
 }
 
 .ticker-wrap { background: var(--red-dark); color: var(--white); }
@@ -194,6 +200,12 @@ nav a:hover, nav a.active { color: var(--red); background: rgba(217, 32, 32, 0.0
     border: 1px solid #ffcdd2;
     border-radius: 6px;
     padding: 10px 14px;
+}
+
+.alert-error {
+    background: #fdecea;
+    color: #b42318;
+    border-color: #f7c1b8;
 }
 
 .main-section { padding: 34px 0; }
@@ -436,6 +448,101 @@ footer {
 
 .btn-submit-modal { flex: 2; }
 
+.auth-page,
+.dashboard-page {
+    max-width: 980px;
+    margin: 28px auto;
+    padding: 0 16px;
+}
+
+.auth-card {
+    max-width: 500px;
+    margin: 0 auto;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.auth-card h1 {
+    margin: 0 0 8px;
+    font-size: 24px;
+}
+
+.auth-card p {
+    margin: 0 0 16px;
+    color: var(--gray-600);
+}
+
+.auth-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 14px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.auth-links a {
+    color: var(--red-dark);
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.dashboard-header h1 {
+    margin: 0 0 6px;
+}
+
+.dashboard-header p {
+    margin: 0 0 16px;
+    color: var(--gray-600);
+}
+
+.dashboard-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.btn-hero-secondary.dark {
+    color: var(--gray-700);
+    border-color: var(--gray-400);
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid var(--gray-200);
+    font-size: 13px;
+}
+
+.table-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-submit.small,
+.btn-cancel.small {
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+.spaced-top {
+    margin-top: 16px;
+}
+
 @media (max-width: 899px) {
     nav { display: none; }
     .hero .container { flex-direction: column; align-items: flex-start; }
@@ -452,4 +559,5 @@ footer {
     .form-grid-2 { grid-template-columns: 1fr; }
     .hero-text h2 { font-size: 22px; }
     .modal-footer { flex-direction: column; }
+    .auth-links { flex-direction: column; }
 }

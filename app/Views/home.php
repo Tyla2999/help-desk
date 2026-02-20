@@ -1,6 +1,8 @@
 <?php
 /** @var array<int, array<string, mixed>> $announcements */
 /** @var array<int, array<string, mixed>> $tickets */
+/** @var array<string, string> $siteContents */
+/** @var array<string, mixed>|null $currentUser */
 
 $featuredAnnouncement = $announcements[0] ?? null;
 $recentAnnouncements = array_slice($announcements, 1, 5);
@@ -21,12 +23,20 @@ foreach (array_slice($announcements, 0, 5) as $announcement) {
 $tickerText = empty($tickerParts)
     ? 'ยินดีต้อนรับสู่ศูนย์บริการฝ่ายเทคโนโลยีสารสนเทศ • สามารถติดตามข่าวสารและแจ้งซ่อมผ่านระบบออนไลน์ได้ทันที'
     : implode(' | ', $tickerParts);
+
+$heroTitle = trim((string) ($siteContents['hero_title'] ?? '')) ?: 'บริการไอทีครบวงจร เพื่อการทำงานที่มีประสิทธิภาพ';
+$heroSubtitle = trim((string) ($siteContents['hero_subtitle'] ?? '')) ?: 'ศูนย์กลางข้อมูลข่าวสาร บริการ และการสนับสนุนด้านเทคโนโลยีสารสนเทศ สำหรับบุคลากรทุกท่าน';
+$contactPhone = trim((string) ($siteContents['contact_phone'] ?? '')) ?: '0-2xxx-xxxx ต่อ 1234';
+$contactEmail = trim((string) ($siteContents['contact_email'] ?? '')) ?: 'it@company.com';
+
+$isLoggedIn = $currentUser !== null;
+$isAdmin = $isLoggedIn && ((string) ($currentUser['role'] ?? '') === 'admin');
 ?>
 
 <div class="topbar">
     <div class="container">
         <div class="topbar-left">
-            <span>โทร: 0-2xxx-xxxx ต่อ 1234</span>
+            <span>โทร: <?= e($contactPhone) ?></span>
         </div>
         <div>
             <a href="#announcements">ข่าวสาร</a>
@@ -50,7 +60,17 @@ $tickerText = empty($tickerParts)
             <a href="#announcements">ข่าวสาร</a>
             <a href="#service-status">บริการ</a>
             <a href="#contact-it">ติดต่อ</a>
-            <button type="button" class="btn-report" data-open-report>แจ้งซ่อม</button>
+            <?php if ($isLoggedIn): ?>
+                <a href="<?= e(url('dashboard')) ?>">แดชบอร์ด</a>
+                <button type="button" class="btn-report" data-open-report>แจ้งซ่อม</button>
+                <form method="post" action="<?= e(url('logout')) ?>" class="inline-form">
+                    <input type="hidden" name="_token" value="<?= e(csrf_token()) ?>">
+                    <button type="submit" class="btn-report secondary">ออกจากระบบ</button>
+                </form>
+            <?php else: ?>
+                <a href="<?= e(url('login')) ?>">เข้าสู่ระบบ</a>
+                <a href="<?= e(url('register')) ?>">สมัครสมาชิก</a>
+            <?php endif; ?>
         </nav>
     </div>
 </header>
@@ -67,11 +87,15 @@ $tickerText = empty($tickerParts)
 <section class="hero">
     <div class="container">
         <div class="hero-text">
-            <h2>บริการไอทีครบวงจร<br>เพื่อการทำงานที่มีประสิทธิภาพ</h2>
-            <p>ศูนย์กลางข้อมูลข่าวสาร บริการ และการสนับสนุนด้านเทคโนโลยีสารสนเทศ สำหรับบุคลากรทุกท่าน</p>
+            <h2><?= e($heroTitle) ?></h2>
+            <p><?= e($heroSubtitle) ?></p>
         </div>
         <div class="hero-actions">
-            <button type="button" class="btn-hero-primary" data-open-report>แจ้งซ่อมออนไลน์</button>
+            <?php if ($isLoggedIn): ?>
+                <button type="button" class="btn-hero-primary" data-open-report>แจ้งซ่อมออนไลน์</button>
+            <?php else: ?>
+                <a href="<?= e(url('login')) ?>" class="btn-hero-primary">เข้าสู่ระบบเพื่อแจ้งซ่อม</a>
+            <?php endif; ?>
             <a href="#service-status" class="btn-hero-secondary">ตรวจสอบสถานะ</a>
         </div>
     </div>
@@ -112,6 +136,9 @@ $tickerText = empty($tickerParts)
 
 <?php if (!empty($success)): ?>
     <div class="alert"><?= e($success) ?></div>
+<?php endif; ?>
+<?php if (!empty($error)): ?>
+    <div class="alert alert-error"><?= e($error) ?></div>
 <?php endif; ?>
 
 <main class="main-section">
@@ -241,38 +268,41 @@ $tickerText = empty($tickerParts)
                     <div class="card-header">ติดต่อฝ่าย IT</div>
                     <div class="card-body">
                         <div class="status-list">
-                            <div class="status-item"><span class="status-label">Help Desk</span><span class="hotline">ต่อ 1234</span></div>
+                            <div class="status-item"><span class="status-label">Help Desk</span><span class="hotline"><?= e($contactPhone) ?></span></div>
                             <div class="status-item"><span class="status-label">เครือข่าย</span><span class="hotline">ต่อ 1235</span></div>
                             <div class="status-item"><span class="status-label">ระบบงาน</span><span class="hotline">ต่อ 1236</span></div>
-                            <div class="status-item"><span class="status-label">อีเมล</span><span class="hotline">it@company.com</span></div>
+                            <div class="status-item"><span class="status-label">อีเมล</span><span class="hotline"><?= e($contactEmail) ?></span></div>
                         </div>
                     </div>
                 </article>
             </aside>
         </section>
 
-        <section class="admin-section">
-            <article class="card">
-                <div class="card-header">เพิ่มประกาศ</div>
-                <div class="card-body">
-                    <form method="post" action="<?= e(url('announcements')) ?>" class="report-form">
-                        <div class="form-row">
-                            <label>หัวข้อประกาศ</label>
-                            <input type="text" name="title" placeholder="เช่น แจ้งปิดปรับปรุงระบบ" required>
-                        </div>
-                        <div class="form-row">
-                            <label>รายละเอียด</label>
-                            <textarea name="detail" placeholder="รายละเอียดประกาศ" required></textarea>
-                        </div>
-                        <div class="form-row">
-                            <label>ลิงก์รูปภาพ</label>
-                            <input type="url" name="image_url" placeholder="https://example.com/image.jpg">
-                        </div>
-                        <button type="submit" class="btn-submit">บันทึกประกาศ</button>
-                    </form>
-                </div>
-            </article>
-        </section>
+        <?php if ($isAdmin): ?>
+            <section class="admin-section">
+                <article class="card">
+                    <div class="card-header">เพิ่มประกาศ</div>
+                    <div class="card-body">
+                        <form method="post" action="<?= e(url('announcements')) ?>" class="report-form">
+                            <input type="hidden" name="_token" value="<?= e(csrf_token()) ?>">
+                            <div class="form-row">
+                                <label>หัวข้อประกาศ</label>
+                                <input type="text" name="title" placeholder="เช่น แจ้งปิดปรับปรุงระบบ" required>
+                            </div>
+                            <div class="form-row">
+                                <label>รายละเอียด</label>
+                                <textarea name="detail" placeholder="รายละเอียดประกาศ" required></textarea>
+                            </div>
+                            <div class="form-row">
+                                <label>ลิงก์รูปภาพ</label>
+                                <input type="url" name="image_url" placeholder="https://example.com/image.jpg">
+                            </div>
+                            <button type="submit" class="btn-submit">บันทึกประกาศ</button>
+                        </form>
+                    </div>
+                </article>
+            </section>
+        <?php endif; ?>
     </div>
 </main>
 
@@ -313,6 +343,7 @@ $tickerText = empty($tickerParts)
             <button type="button" class="modal-close" data-close-report aria-label="ปิด">×</button>
         </div>
         <form method="post" action="<?= e(url('tickets')) ?>">
+            <input type="hidden" name="_token" value="<?= e(csrf_token()) ?>">
             <div class="modal-body">
                 <div class="modal-form">
                     <div class="form-grid-2">

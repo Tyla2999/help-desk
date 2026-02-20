@@ -99,3 +99,89 @@ function e(?string $value): string
 {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
+
+function csrf_token(): string
+{
+    if (!isset($_SESSION['_csrf_token']) || !is_string($_SESSION['_csrf_token'])) {
+        $_SESSION['_csrf_token'] = bin2hex(random_bytes(32));
+    }
+
+    return $_SESSION['_csrf_token'];
+}
+
+function verify_csrf_token(?string $token): bool
+{
+    $sessionToken = $_SESSION['_csrf_token'] ?? null;
+
+    return is_string($sessionToken) && is_string($token) && hash_equals($sessionToken, $token);
+}
+
+function current_user(): ?array
+{
+    static $resolved = false;
+    static $user = null;
+
+    if ($resolved) {
+        return is_array($user) ? $user : null;
+    }
+
+    $resolved = true;
+
+    $userId = $_SESSION['auth_user_id'] ?? null;
+    if (!is_numeric($userId)) {
+        return null;
+    }
+
+    $model = new \App\Models\User();
+    $found = $model->findById((int) $userId);
+    if ($found === null) {
+        return null;
+    }
+
+    $user = $found;
+    return $user;
+}
+
+function auth_check(): bool
+{
+    return current_user() !== null;
+}
+
+function login_user(int $userId): void
+{
+    session_regenerate_id(true);
+    $_SESSION['auth_user_id'] = $userId;
+}
+
+function logout_user(): void
+{
+    unset($_SESSION['auth_user_id']);
+    session_regenerate_id(true);
+}
+
+function require_auth(): void
+{
+    if (!auth_check()) {
+        redirect('/login');
+    }
+}
+
+function has_role(string|array $roles): bool
+{
+    $user = current_user();
+    if ($user === null) {
+        return false;
+    }
+
+    $roleList = is_array($roles) ? $roles : [$roles];
+    return in_array((string) ($user['role'] ?? ''), $roleList, true);
+}
+
+function require_role(string|array $roles): void
+{
+    require_auth();
+
+    if (!has_role($roles)) {
+        redirect('/dashboard');
+    }
+}
