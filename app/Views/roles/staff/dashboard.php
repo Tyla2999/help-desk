@@ -1,0 +1,2 @@
+<?php
+redirect('/user/dashboard');

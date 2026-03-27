@@ -22,4 +22,14 @@ class Flash
 
         return $message;
     }
+
+    public static function success(string $message): void
+    {
+        self::set('success', $message);
+    }
+
+    public static function error(string $message): void
+    {
+        self::set('error', $message);
+    }
 }
